@@ -1,12 +1,12 @@
 +++
-title="Data Activation"
+title="Enrich"
 chapter = true
-weight = 5
-pre = "4. "
+weight = 7
+pre = "6. "
 post = ""
 +++
 
-# Activating your Data
+# Enrich
 
 {{<mermaid>}}
 flowchart LR
@@ -14,10 +14,10 @@ flowchart LR
     style id1 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id2 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id3 fill:#f5f5f5,stroke:#333,stroke-width:1px
-    style id4 fill:#f5f5f5,stroke:#6638B8,stroke-width:3px
+    style id4 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id5 fill:#f5f5f5,stroke:#333,stroke-width:1px
-    style id6 fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style id6 fill:#f5f5f5,stroke:#6638B8,stroke-width:3px
     style id7 fill:#f5f5f5,stroke:#333,stroke-width:1px
 {{</mermaid >}}
 
-In this chapter you will learn how to set-up Hightouch to enable your teams to easily build new audiences based on Snowplow's rich behavioural data and sync to their needed destinations.
+The enrichment process adds extra properties and values to your collected data. In this chapter we will highlight the most important ones that you are advised to enable.

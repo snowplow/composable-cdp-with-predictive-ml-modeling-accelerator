@@ -1,12 +1,12 @@
 +++
-title="Data Activation"
+title="Next Steps"
 chapter = true
-weight = 5
-pre = "4. "
+weight = 8
+pre = "7. "
 post = ""
 +++
 
-# Activating your Data
+# Next steps
 
 {{<mermaid>}}
 flowchart LR
@@ -14,10 +14,10 @@ flowchart LR
     style id1 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id2 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id3 fill:#f5f5f5,stroke:#333,stroke-width:1px
-    style id4 fill:#f5f5f5,stroke:#6638B8,stroke-width:3px
+    style id4 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id5 fill:#f5f5f5,stroke:#333,stroke-width:1px
     style id6 fill:#f5f5f5,stroke:#333,stroke-width:1px
-    style id7 fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style id7 fill:#f5f5f5,stroke:#6638B8,stroke-width:3px
 {{</mermaid >}}
 
-In this chapter you will learn how to set-up Hightouch to enable your teams to easily build new audiences based on Snowplow's rich behavioural data and sync to their needed destinations.
+Now that you have set-up tracking and enrichment on your pipeline and generated some test events it is time to make use of what you have learned so far by modelling and visualising your own pipeline data.
