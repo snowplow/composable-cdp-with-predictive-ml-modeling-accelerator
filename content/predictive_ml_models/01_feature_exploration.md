@@ -16,7 +16,8 @@ Primary features returned from the Snowplow dbt web model can be grouped into ca
 * **Engagement** – Accumulated page ping events by dbt page view model
 
 #### Collect user features from Snowplow derived tables
-Create a view or table of users features based on their first website visit. Include a column for your conversion flag so we are ready to train and test our models. Conversion can be derived from a Snowplow tracked event or using other sources like Salesforce data.
+Create a view or table of users features based on their first website visit. Include a column for your conversion flag so we are ready to train and test our models. Conversion can be derived from a Snowplow tracked event or using other sources like Salesforce data. 
+In this example we are joining onto a `converted_users` table, which contains a list of all users that have converted. If you are using the sample dataset this will be the table you uploaded in chapter one.
 
 ```sql
 create view first_touch_user_features as (

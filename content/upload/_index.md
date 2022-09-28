@@ -17,4 +17,7 @@ flowchart LR
     style id4 fill:#f5f5f5,stroke:#333,stroke-width:1px
 {{</mermaid >}}
 
-A sample events dataset for your Databricks warehouse has been provided. This will allow you to be able to start data modeling and getting familiar with Snowplow event data, without the need to have a working pipeline. This chapter will guide you through this process.
+
+If you're using the sample events dataset from the [Advanced Analytics for Web](https://docs.snowplow.io/advanced-analytics-web-accelerator) accelerator, a table of converted users has been provided. This can be joined to your modelled tables on `domain_userid` and will allow you to be able to create a trainig dataset for your ML models, without the need to have a working pipeline. This chapter will guide you through this process.
+
+**If you're not using the sample events, please skip this chapter.**
