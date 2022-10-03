@@ -17,7 +17,7 @@ Primary features returned from the Snowplow dbt web model can be grouped into ca
 
 #### Collect user features from Snowplow derived tables
 Create a view or table of users features based on their first website visit. Include a column for your conversion flag so we are ready to train and test our models. Conversion can be derived from a Snowplow tracked event or using other sources like Salesforce data. 
-In this example we are joining onto a `converted_users` table, which contains a list of all users that have converted. If you are using the sample dataset this will be the table you uploaded in chapter one.
+In this example we are joining onto a `converted_users` table, which contains a list of all users that have converted. If you are using the sample dataset this will be the table you uploaded in the [Upload Sample Data]({{< ref upload >}}) chapter.
 
 ```sql
 create view first_touch_user_features as (
@@ -39,6 +39,6 @@ from snowplow_web_users u
 )
 ```
 
-Here we have just selected a few of the features Snowplow behavioural data has to offer. You'd extend this with more and more columns as you start using ML to predict more and more types of user behavior, building out a richer view of each of your customers / users. 
+Here we have just selected a few of the features Snowplow behavioural data has to offer. You can extend this with more and more columns as you start using ML to predict more and more types of user behaviour, building out a richer view of each of your customers / users. 
 
-Consider adding this step as a custom model in dbt so the table is kept up to date when your ML model is in production. Read more about adding custom dbt models [here]().
+Consider adding this step as a custom model in dbt so the table is kept up to date when your ML model is in production. Read more about adding custom dbt models [here](https://snowplow.github.io/dbt-snowplow-web/#!/overview/snowplow_web).

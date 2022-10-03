@@ -5,7 +5,7 @@ weight = 2
 
 #### **Step 1:** Create a parent model
 
-First you need to create a [parent model table](https://hightouch.com/docs/audiences/schema#the-parent-model-table) for the audiences to be built off of. This can be based on your out-of-the-box Snowplow modelled `snowplow_web_users` table or any custom user tables you have built.
+First you need to create a [parent model table](https://hightouch.com/docs/audiences/schema#the-parent-model-table) for the audiences to be built off. This can be based on your out-of-the-box Snowplow modelled `snowplow_web_users` table or any custom user tables you have built.
 
 #### **Step 2:** Audience builder
 
@@ -18,10 +18,10 @@ Now you can build an audience using columns from your parent model. In this exam
 
 You can see we have utilised a [related model](https://hightouch.com/docs/audiences/schema#other-objects) *User Propensity Scores*. This model is based on the table of propensity scores outputted by your predictive ML model. You can join other source tables like this to your user parent model.
 
-#### **Step 3:** Add Hightouch Events (Optional)
-It can be useful to flag key user behavoir like adding a product to basket or filling out a form as a Hightouch [Event](https://hightouch.com/docs/audiences/schema#events). Similary to related models, these can then be joined onto the parent model to filter your audiences by.
+#### **Step 3:** Add Hightouch events (Optional)
+It can be useful to flag key user behaviour like adding a product to basket or filling out a form as a Hightouch [Event](https://hightouch.com/docs/audiences/schema#events). Similarly to related models, these can then be joined onto the parent model to filter your audiences.
 
-For example, you may want to filter an audience by if or when the user had viewed a certain page on your website. You can make this an audience event using the following query on your `snowplow_web_page_views` table:
+For example, you may want to filter an audience by, if or when the user had viewed a certain page on your website. You can make this an audience event using the following query on your `snowplow_web_page_views` table:
 
 ```sql
 select 

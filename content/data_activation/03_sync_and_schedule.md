@@ -14,6 +14,6 @@ After setting up your required [destinations](https://hightouch.com/integrations
 
 It is important that your audiences connected to these third party tools are always up to date and in sync with our Snowplow web data in Databricks. 
 
-One way you can ensure this by using the [dbt Cloud extension](https://hightouch.com/docs/syncs/dbt-cloud) to trigger syncs after the dbt Snowplow web model job finishes and our derived tables are updated.
+One way you can ensure this is by using the [dbt Cloud extension](https://hightouch.com/docs/syncs/dbt-cloud) to trigger syncs after the dbt Snowplow web model job finishes and the derived tables are updated.
 
 ![hightouch_dbt_schedule](../images/hightouch_dbt_schedule.png?width=40pc)
