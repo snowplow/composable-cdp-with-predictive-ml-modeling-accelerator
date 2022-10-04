@@ -56,7 +56,7 @@ create or replace view first_touch_user_features as (
         pv.br_lang,
         pv.device_family,
         pv.os_family,
-        coalesce(converted_users.converted, false) as converted_user
+        coalesce(converted_users.converted, false) as converted_user -- Your convertion flag here
     from snowplow_web_users
     inner join
         pv on snowplow_web_users.domain_userid = pv.domain_userid and pv.rn = 1
@@ -67,6 +67,6 @@ create or replace view first_touch_user_features as (
 
 ```
 
-Here we have just selected a few of the features Snowplow behavioural data has to offer. You can include more columns before going through feature extraction as you start using ML to predict more and more types of user behaviour, building out a richer view of each of your customers / users. 
+Here we have just selected a few of the features Snowplow behavioural data has to offer. You can include more columns before going through feature engineering as you start using ML to predict more and more types of user behaviour, building out a richer view of each of your customers / users. 
 
 Consider adding this step as a custom model in dbt so the table is kept up to date when your ML model is in production. Read more about adding custom dbt models [here](https://snowplow.github.io/dbt-snowplow-web/#!/overview/snowplow_web).
