@@ -56,7 +56,7 @@ create or replace view first_touch_user_features as (
         pv.br_lang,
         pv.device_family,
         pv.os_family,
-        coalesce(converted_users.converted, false) as converted_user -- Your convertion flag here
+        coalesce(converted_users.converted, false) as converted_user -- Your conversion flag here
     from snowplow_web_users
     inner join
         pv on snowplow_web_users.domain_userid = pv.domain_userid and pv.rn = 1
