@@ -39,8 +39,8 @@ import pandas as pd
 
 df = predictions.toPandas()
 df["propensity_decile"] = pd.qcut(df["propensity_score"], 10, labels=False)
-df["propensity_label"] = pd.cut(df["propensity_score"], [0., 0.33, 0.66, 1.0], include_lowest=True, 
-                  labels=['Low', 'Medium', 'High'])
+df["propensity_label"] = pd.cut(df["propensity_score"], [0., 0.33, 0.66, 1.0], include_lowest=True,
+                                labels=['Low', 'Medium', 'High'])
 
 # COMMAND ----------
 
