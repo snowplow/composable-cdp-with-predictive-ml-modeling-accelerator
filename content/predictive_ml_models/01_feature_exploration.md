@@ -67,6 +67,6 @@ create or replace view first_touch_user_features as (
 
 ```
 
-Here we have just selected a few of the features Snowplow behavioural data has to offer. You can include more columns before going through feature engineering as you start using ML to predict more and more types of user behaviour, building out a richer view of each of your customers / users. 
+Here we have just selected a few of the features Snowplow behavioral data has to offer. You can include more columns before going through feature engineering as you start using ML to predict more and more types of user behavior, building out a richer view of each of your customers / users. 
 
 Consider adding this step as a custom model in dbt so the table is kept up to date when your ML model is in production. Read more about adding custom dbt models [here](https://snowplow.github.io/dbt-snowplow-web/#!/overview/snowplow_web).

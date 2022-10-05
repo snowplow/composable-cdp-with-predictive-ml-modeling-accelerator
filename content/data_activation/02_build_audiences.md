@@ -9,17 +9,17 @@ First you need to create a [parent model table](https://hightouch.com/docs/audie
 
 #### **Step 2:** Audience builder
 
-Now you can build an audience using columns from your parent model. In this example we are targetting users in the awareness stage based on the following criteria:
+Now you can build an audience using columns from your parent model. In this example we are targeting users in the awareness stage based on the following criteria:
 * First time on website
 * Did not arrive from a marketing campaign
 * **High** propensity score
 
 ![hightouch_audience_builder](../images/hightouch_audience_builder.png?width=30pc)
 
-You can see we have utilised a [related model](https://hightouch.com/docs/audiences/schema#other-objects) *User Propensity Scores*. This model is based on the table of propensity scores outputted by your predictive ML model. You can join other source tables like this to your user parent model.
+You can see we have utilized a [related model](https://hightouch.com/docs/audiences/schema#other-objects) *User Propensity Scores*. This model is based on the table of propensity scores outputted by your predictive ML model. You can join other source tables like this to your user parent model.
 
 #### **Step 3:** Add Hightouch events (Optional)
-It can be useful to flag key user behaviour like adding a product to basket or filling out a form as a Hightouch [Event](https://hightouch.com/docs/audiences/schema#events). Similarly to related models, these can then be joined onto the parent model to filter your audiences.
+It can be useful to flag key user behavior like adding a product to basket or filling out a form as a Hightouch [Event](https://hightouch.com/docs/audiences/schema#events). Similarly to related models, these can then be joined onto the parent model to filter your audiences.
 
 For example, you may want to filter an audience by, if or when the user had viewed a certain page on your website. You can make this an audience event using the following query on your `snowplow_web_page_views` table:
 

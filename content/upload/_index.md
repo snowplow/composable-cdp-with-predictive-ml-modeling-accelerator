@@ -18,6 +18,6 @@ flowchart LR
 {{</mermaid >}}
 
 
-If you are using the sample events dataset from the [Advanced Analytics for Web](https://docs.snowplow.io/advanced-analytics-web-accelerator) accelerator, a table of converted users has been provided. This can be joined to your modelled tables on `domain_userid` and will allow you to be able to create a trainig dataset for your ML models, without the need to have a working pipeline. This chapter will guide you through this process.
+If you are using the sample events dataset from the [Advanced Analytics for Web](https://docs.snowplow.io/advanced-analytics-web-accelerator) accelerator, a table of converted users has been provided. This can be joined to your modelled tables on `domain_userid` and will allow you to be able to create a training dataset for your ML models, without the need to have a working pipeline. This chapter will guide you through this process.
 
 **If you are not using the sample events, please skip to the next chapter, Predictive ML Modelling.**

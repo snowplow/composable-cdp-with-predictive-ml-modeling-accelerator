@@ -2,7 +2,7 @@
 # MAGIC %md 
 # MAGIC # Propensity to Convert ML Model Training
 # MAGIC 
-# MAGIC In this notebook we will be using sample behavioural data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website. Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
+# MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website. Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
 
 # COMMAND ----------
 
@@ -82,7 +82,7 @@ print(df["converted_user"].value_counts(normalize=True))
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC The provided training data is relativley small in size and combined with a low conversion rate, we consider it to be imbalanced. Therefore we will balance the dataset with SMOTE, which will oversample the data by introducing new synthetic converted user samples.
+# MAGIC The provided training data is relatively small in size and combined with a low conversion rate, we consider it to be imbalanced. Therefore we will balance the dataset with SMOTE, which will oversample the data by introducing new synthetic converted user samples.
 
 # COMMAND ----------
 
@@ -191,9 +191,9 @@ with mlflow.start_run(run_name='LightGBM') as run:
 
 # MAGIC %md
 # MAGIC ### Model results
-# MAGIC Output a classification report and view feature importance to understand how your model is performing. You can open up the Experiments sidebar to further investigate how the hyperparameter choice correlates with model F2 scores using a parrell coordinates plot. 
+# MAGIC Output a classification report and view feature importance to understand how your model is performing. You can open up the Experiments sidebar to further investigate how the hyperparameter choice correlates with model F2 scores using a parallel coordinates plot. 
 # MAGIC 
-# MAGIC You may want to run additional hyperameter sweeps to explore different parameter values or continue to engineer new features to try further optimizing the model. Once happy with the model you would retrain it on your entire dataset. For simplicity, these steps are not included in this example.
+# MAGIC You may want to run additional hyperparameter sweeps to explore different parameter values or continue to engineer new features to try further optimizing the model. Once happy with the model you would retrain it on your entire dataset. For simplicity, these steps are not included in this example.
 
 # COMMAND ----------
 
