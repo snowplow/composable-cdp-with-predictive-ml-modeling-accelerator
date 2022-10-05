@@ -34,7 +34,7 @@ Once finished, you will be able to use predictive models to achieve a competitiv
 
 #### What you will learn
 
-In approximately 2 working days (~4 working hours) you can achieve the following:
+In approximately 1 working day (~3 working hours) you can achieve the following:
 - **Build a predictive model -** Using Databricks and MLflow to build a machine learning model that can accurately predict conversion events using features collected from Snowplow's out-of-the-box modelled data.
 - **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable our marketing teams to effortlessly build new audiences and sync to their needed destinations.
 - **Next steps -** Gain value from your own pipeline data.

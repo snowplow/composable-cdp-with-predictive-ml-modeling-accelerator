@@ -9,4 +9,4 @@ This propensity to convert solution provides a very flexible way to identify who
 
 Import this notebook into your Databricks workspace to run this model for yourself.
 
-{{< jupyter accelerator_training_model 1000 >}}
+{{< jupyter accelerator_training_model 500 >}}

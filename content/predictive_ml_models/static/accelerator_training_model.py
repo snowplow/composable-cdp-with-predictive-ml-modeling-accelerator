@@ -2,7 +2,26 @@
 # MAGIC %md 
 # MAGIC # Propensity to Convert ML Model Training
 # MAGIC 
-# MAGIC In this notebook we will be using sample behavioural data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website.
+# MAGIC In this notebook we will be using sample behavioural data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website. Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Model Selection
+# MAGIC 
+# MAGIC Boosting trees often perform better than neural networks on categorical data sets, such as this one. The most popular ones are XGBoost, LightGBM and CatBoost, each with different strengths. For this example we will use LightGBM.
+# MAGIC 
+# MAGIC **LightGBM** is a gradient boosting framework that uses tree based learning algorithms. It is designed to be distributed and efficient with the following advantages:
+# MAGIC 
+# MAGIC * Faster training speed and higher efficiency
+# MAGIC * Lower memory usage
+# MAGIC * Better accuracy
+# MAGIC * Support of parallel, distributed, and GPU learning
+# MAGIC * Capable of handling large-scale data
+# MAGIC 
+# MAGIC 
+# MAGIC **Resources:** 
+# MAGIC - [Full LightGBM Documentation](https://lightgbm.readthedocs.io/en/v3.3.2/)
 
 # COMMAND ----------
 
@@ -28,6 +47,11 @@ from mlflow.models.signature import infer_signature
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ### Prepare dataset for training
+
+# COMMAND ----------
+
 # DBTITLE 1,Load user features
 df = spark.table("snowplow_samples.samples.first_touch_user_features").toPandas()
 
@@ -49,30 +73,6 @@ for col in continues_col:
     df[col].fillna(df[col].mean(), inplace=True)
 
 df.head()
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Model Selection
-# MAGIC 
-# MAGIC Boosting trees often perform better than neural networks on categorical data sets, such as this one. Another great property is their ability to work with noisy data, LightGBM could do all preprocessing internally, but this isn’t used in this notebook. The most popular ones are XGBoost, LightGBM and CatBoost, each with different strengths. For this example we will use LightGBM.
-# MAGIC 
-# MAGIC **LightGBM** is a gradient boosting framework that uses tree based learning algorithms. It is designed to be distributed and efficient with the following advantages:
-# MAGIC 
-# MAGIC * Faster training speed and higher efficiency
-# MAGIC * Lower memory usage
-# MAGIC * Better accuracy
-# MAGIC * Support of parallel, distributed, and GPU learning
-# MAGIC * Capable of handling large-scale data
-# MAGIC 
-# MAGIC 
-# MAGIC **Resources:** 
-# MAGIC - [Full LightGBM Documentation](https://lightgbm.readthedocs.io/en/v3.3.2/)
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Train Model
 
 # COMMAND ----------
 
@@ -116,6 +116,16 @@ X_res, y_res = smote_nc.fit_resample(topk.fit_transform(df_train[all_features]),
 
 # COMMAND ----------
 
+# MAGIC %md 
+# MAGIC ### Hyperparameter tuning
+# MAGIC Using Hyperopt and SparkTrials to run a hyperparameter sweep to train multiple models in parallel.
+# MAGIC 
+# MAGIC Before fitting model hyperparameters, it is essential to establish what model property is being maximized. Accuracy would not work for this data due to class imbalance. A common approach to avoid this issue is the F1 score – a harmonic mean of precision and recall.
+# MAGIC 
+# MAGIC Identifying conversions (true positive) is more important than misclassifying negatives (false positives). Because F1 assigns the same weight to both precision and recall, it needs to be generalized to F Beta. That allows us to weight recall against precision. F2 (beta equals 2) is used for this example – recall is twice as important as precision. The value of beta should be tuned to a business case.
+
+# COMMAND ----------
+
 # DBTITLE 1,Define model evaluation for hyperopt
 def evaluate_model(params):
     # instantiate model
@@ -137,14 +147,14 @@ def evaluate_model(params):
     model.fit(X_res, y_res.astype(int))
 
     # predict
-    y_pred = model.predict(df_test[all_features])
+    y_pred = np.where(model.predict(df_test[all_features]) > 0.5, 1, 0)
 
     # score
-    precision = average_precision_score(df_test['converted_user'], y_pred)
-    mlflow.log_metric('avg_precision', precision)  # record actual metric with mlflow run
+    f2 = fbeta_score(df_test['converted_user'], y_pred, average='binary', beta=2)
+    mlflow.log_metric('avg_f2', f2)  # record actual metric with mlflow run
 
-    # return results (negative precision as we minimize the function)
-    return {'loss': -precision, 'status': STATUS_OK, 'model': model}
+    # return results (negative F Beta score as we minimize the function)
+    return {'loss': -f2, 'status': STATUS_OK, 'model': model}
 
 # COMMAND ----------
 
@@ -163,8 +173,10 @@ search_space = {
 # DBTITLE 1,Perform evaluation to optimal hyperparameters
 # perform evaluation
 with mlflow.start_run(run_name='LightGBM') as run:
-    trials = SparkTrials(parallelism=4)
-    argmin = fmin(fn=evaluate_model, space=search_space, algo=tpe.suggest, max_evals=20, trials=trials)
+    # Greater parallelism will lead to speedups, but a less optimal hyperparameter sweep. 
+    # A reasonable value for parallelism is the square root of max_evals.
+    trials = SparkTrials(parallelism=10)
+    argmin = fmin(fn=evaluate_model, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
     # log the best model information
     model = trials.best_trial['result']['model']
     signature = infer_signature(df_test[all_features], model.predict(X_res))
@@ -172,8 +184,16 @@ with mlflow.start_run(run_name='LightGBM') as run:
     # add hyperopt model params
     for p in argmin:
         mlflow.log_param(p, argmin[p])
-    mlflow.log_metric("avg_precision", trials.best_trial['result']['loss'])
+    mlflow.log_metric("f2", trials.best_trial['result']['loss'])
     run_id = run.info.run_id
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Model results
+# MAGIC Output a classification report and view feature importance to understand how your model is performing. You can open up the Experiments sidebar to further investigate how the hyperparameter choice correlates with model F2 scores using a parrell coordinates plot. 
+# MAGIC 
+# MAGIC You may want to run additional hyperameter sweeps to explore different parameter values or continue to engineer new features to try further optimizing the model. Once happy with the model you would retrain it on your entire dataset. For simplicity, these steps are not included in this example.
 
 # COMMAND ----------
 
@@ -187,6 +207,13 @@ disp.plot()
 # COMMAND ----------
 
 lgb.plot_importance(model.steps[1][1], max_num_features=15)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Register the model in MLflow Model Registry
+# MAGIC 
+# MAGIC By registering this model in Model Registry, you can easily reference the model from anywhere within Databricks. When ready, you can transition the model to production.
 
 # COMMAND ----------
 

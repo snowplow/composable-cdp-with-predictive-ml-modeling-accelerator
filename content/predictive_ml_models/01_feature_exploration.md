@@ -40,15 +40,15 @@ create or replace view first_touch_user_features as (
     )
 
     select
-        snowplow_web_users.domain_userid,
-        snowplow_web_users.first_page_title,
-        snowplow_web_users.refr_urlhost,
-        snowplow_web_users.refr_medium,
-        snowplow_web_users.mkt_medium,
-        snowplow_web_users.mkt_source,
-        snowplow_web_users.mkt_term,
-        snowplow_web_users.mkt_campaign,
-        snowplow_web_users.engaged_time_in_s,
+        u.domain_userid,
+        u.first_page_title,
+        u.refr_urlhost,
+        u.refr_medium,
+        u.mkt_medium,
+        u.mkt_source,
+        u.mkt_term,
+        u.mkt_campaign,
+        u.engaged_time_in_s,
         pv.absolute_time_in_s,
         pv.vertical_percentage_scrolled,
         pv.geo_country,
@@ -56,13 +56,13 @@ create or replace view first_touch_user_features as (
         pv.br_lang,
         pv.device_family,
         pv.os_family,
-        coalesce(converted_users.converted, false) as converted_user -- Your conversion flag here
-    from snowplow_web_users
+        coalesce(c.converted, false) as converted_user -- Your conversion flag here
+    from snowplow_web_users u
     inner join
-        pv on snowplow_web_users.domain_userid = pv.domain_userid and pv.rn = 1
+        pv on u.domain_userid = pv.domain_userid
     left join
-        converted_users on
-            snowplow_web_users.domain_userid = converted_users.domain_userid
+        converted_users c on
+            u.domain_userid = c.domain_userid
 )
 
 ```
