@@ -39,7 +39,7 @@ import lightgbm as lgb
 from imblearn.over_sampling import SMOTENC
 from sklearn.base import BaseEstimator, TransformerMixin
 import numpy as np
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay, fbeta_score, average_precision_score
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay, fbeta_score
 from sklearn.pipeline import Pipeline
 from hyperopt import fmin, tpe, hp, STATUS_OK, SparkTrials
 from hyperopt.pyll.base import scope
