@@ -1,6 +1,6 @@
 +++
-title = "Visualise Ad Campaign Performance"
-weight = 1
+title = "Visualize Ad Campaign Performance"
+weight = 2
 +++
 
 At this stage you will have at least one campaign up and running synced from a Hightouch audience.
