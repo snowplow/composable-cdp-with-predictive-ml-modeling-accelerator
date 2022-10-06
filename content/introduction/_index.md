@@ -44,14 +44,15 @@ In approximately 1 working day (~3 working hours) you can achieve the following:
 #### Prerequisites
 
 {{% notice tip %}}
-Complete our [Advanced Analytics for Web](https://docs.snowplow.io/advanced-analytics-web-accelerator) accelerator if you don't have any Snowplow modelled web data in your warehouse yet. You don't need a working Snowplow pipeline, a sample events dataset is provided.
+Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/web/) accelerator if you don't have any Snowplow modelled web data in your warehouse yet. You don't need a working Snowplow pipeline, a sample events dataset is provided.
 {{% /notice %}}
 
 **Predictive ML Modelling**
 - Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
-- Conversion events, these can be derived from a Snowplow tracked event or using other sources like Salesforce data. If you're using the sample events from the Advanced Analytics for Web accelerator, we have provided a table of converted users to upload in chapter one.
+- Conversion events, these can be derived from a Snowplow tracked event or using other sources like Salesforce data.
 - Databricks account and a user with access to create schemas and tables
 - Use of a Databricks ML Cluster on runtime 11.2
 
 **Data Activation**
+- Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
 - Hightouch account and a user with admin role

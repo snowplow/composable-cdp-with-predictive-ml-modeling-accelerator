@@ -16,8 +16,11 @@ Primary features returned from the Snowplow dbt web model can be grouped into ca
 * **Engagement** – Accumulated page ping events by dbt page view model
 
 #### Collect user features from Snowplow derived tables
-First we need to create a view or table of users features based on their first website visit. **If you are using your own conversion flag ensure you include this so we are ready to train and test our models.** Conversion can be derived from a Snowplow tracked event or using other sources like Salesforce data. 
-In this example we are joining onto a `converted_users` table, which contains a list of all users that have converted. If you are using the sample dataset this will be the table you uploaded in the [Upload Sample Data]({{< ref upload >}}) chapter.
+First we need to create a view or table of users features based on their first website visit. If you are using your own conversion flag ensure you include this so we are ready to train and test our models. Conversion can be derived from a Snowplow tracked event or using other sources like Salesforce data. 
+
+{{% notice info %}}
+If you are using the sample dataset from the [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/web/) accelerator, use the `converted_users` CTE shown in the example below. Otherwise replace or remove this with your own conversion events or tables.
+{{% /notice %}}
 
 ```sql
 create or replace view first_touch_user_features as (
@@ -37,6 +40,17 @@ create or replace view first_touch_user_features as (
         from snowplow_web_page_views
         where page_view_in_session_index = 1
         qualify rn = 1
+    ),
+
+    converted_users as (
+    -- Replace or remove this with your own website conversion logic
+        select distinct
+            domain_userid,
+            True as converted
+        from snowplow_web_page_views
+        where (page_urlpath like '/get-started/%'
+            or page_urlpath = '/contact-us/')
+            and engaged_time_in_s >= 30
     )
 
     select
