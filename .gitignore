@@ -1,7 +1,1 @@
-/layouts/
-/static/
-/themes/
-/resources/
-/config.toml
-/.hugo_build.lock
-.DS_Store
+public/
