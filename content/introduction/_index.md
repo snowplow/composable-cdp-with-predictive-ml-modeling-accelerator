@@ -2,7 +2,7 @@
 menuTitle="Introduction" 
 chapter = false 
 weight = 1 
-post = ""
+pre = "<i class='fas fa-rocket'></i> "
 
 aliases = [ 
     "/en", 
@@ -34,10 +34,23 @@ Once finished, you will be able to use predictive models to achieve a competitiv
 
 #### What you will learn
 
-In approximately 1 working day (~3 working hours) you can achieve the following:
-- **Build a predictive model -** Using Databricks and MLflow to build a machine learning model that can accurately predict conversion events using features collected from Snowplow's out-of-the-box modelled data.
-- **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable our marketing teams to effortlessly build new audiences and sync to their needed destinations.
-- **Next steps -** Gain value from your own pipeline data.
+In approximately 1 working day (~6 working hours) you can achieve the following:
+- **Build a predictive model -** Using Databricks and MLflow to build a machine learning model that can accurately predict conversion events using features collected from Snowplow's out-of-the-box modelled data
+- **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable our marketing teams to effortlessly build new audiences and sync to their needed destinations
+- **Next steps -** Productionalize your ML model and visualize ad campaign performance synced from your Hightouch audiences
+
+{{<mermaid>}}
+gantt
+        dateFormat  HH-mm
+        axisFormat %M
+        section 1. Predict
+        2h          :step1, 00-00, 2m
+        section 2. Activate
+        1h          :step2, after step1, 1m
+        section 3. Next Steps
+        3h          :step3, after step2, 3m
+
+{{</mermaid>}}
 
 ***
 

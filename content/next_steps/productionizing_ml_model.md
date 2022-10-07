@@ -12,14 +12,14 @@ In this accelerator we have learnt how to log, register, load and use a MLflow m
   * Delta Live Table pipeline
 * In real-time over a REST API, deploying MLflow model serving capabilities
 
-#### Databricks notebook scheduling
+#### **Option 1:** Databricks notebook scheduling
 The example notebook shown earlier in this accelerator showed how you could load and use your models. This notebook can be triggered to run on a schedule by either creating a [workflow job](https://docs.databricks.com/workflows/jobs/jobs.html) or setting up a schedule from within the notebook itself.
 ![ml_notebook_schedule](../images/ml_notebook_schedule.png?width=40pc)
 
-#### Delta Live Table pipeline
+#### **Option 2:** Delta Live Tables
 If you are using a DLT pipeline, add the steps to load and use your model into your pipeline notebook. See [Delta Live Tables introduction](https://docs.databricks.com/workflows/delta-live-tables/index.html) for more information. 
 
-#### MLflow model serving REST API
+#### **Option 3:** MLflow model serving REST API
 
 The following steps illustrate how to issue requests using a REST API to get predictions from your deployed model using [MLflow model serving](https://docs.databricks.com/mlflow/model-serving.html).
 

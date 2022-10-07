@@ -27,14 +27,14 @@ To attribute conversions, you’ll also need to track conversion events. You'll 
 #### **Step 2:** Ingest campaign data
 Ingest your ad campaign data from your marketing tools into your data warehouse using ETL tools like [Fivetran](https://www.fivetran.com/). If you use multiple advertising sources, you now have a single source of truth and can easily query across all of them. 
 
-#### **Step 3:** Build a dashboard
-Being able to monitor and compare all your campaigns in one place is vital for your marketing teams to uncover true ROI.
+#### **Step 3:** Visualize performance
+Being able to monitor and compare all your campaigns in one place is vital for your marketing teams to uncover true ROI. 
+Join your ingested campaign data with your Snowplow tracked marketing attribution to build reporting in your BI tool.
 
 ![ad_campaign_dashboard](../images/ad_campaign_dashboard.png?width=100pc)
 
 #### **Step 4:** Drill into Hightouch activated campaigns
-Drill deeper into the performance of your Hightouch activated campaigns. Are certain audiences performing better than others? Audiences filtering on high propensity to convert users should see a better return on ad spend so check this is the case. If not there maybe there are ways to improve your ML model like adding new user features.
-
-Below is an example of campaigns activated by two Hightouch audiences, *Awareness (ML Based)* and *Awareness (Rule Based)*, that have been running side by side. You can see the campaigns using ML outputs are achieving a much greater ROI. 
+Drill deeper into the performance of your Hightouch activated campaigns. 
+Below is an example of campaigns activated by two Hightouch audiences, *Awareness (ML Based)* and *Awareness (Rule Based)*, that have been running side by side. You can see the campaigns using ML outputs (targeting high propensity visitors) are achieving a greater ROI. 
 
 ![ad_campaign_dashboard](../images/ad_campaign_dashboard_hightouch.png?width=100pc)
