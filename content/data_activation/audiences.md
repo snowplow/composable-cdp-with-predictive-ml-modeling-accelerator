@@ -15,7 +15,7 @@ Now you can build an audience using columns from your parent model. In this exam
 * **High** propensity score
 
 {{% notice tip %}}
-Marketing to high propensity to convert users using your ML model output you created in the previous [Predictive ML Models]({{< ref predictive_ml_models >}}) chapter, will lead to higher conversion for less advertising spend!
+Marketing to high propensity to convert users (using your ML model output created in the previous [Predictive ML Models]({{< ref predictive_ml_models >}}) chapter) will lead to higher conversion for less advertising spend!
 {{% /notice %}}
 
 ![hightouch_audience_builder](../images/hightouch_audience_builder.png?width=30pc)

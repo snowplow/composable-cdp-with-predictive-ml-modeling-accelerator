@@ -23,8 +23,10 @@ Once finished, you will be able to use predictive models to achieve a competitiv
 
 ![composable_cdp](images/composable_cdp.png)
 
-(Data loaders like [Fivetran](https://www.fivetran.com/) can play an important role in a composable CDP. 
-In this accelerator we don't go into detail on setting these up, see [Fivetran's Documentation](https://fivetran.com/docs/destinations/databricks) if you want to learn more.)
+{{% notice note %}}
+Data loaders like [Fivetran](https://www.fivetran.com/) can play an important role in a composable CDP. 
+In this accelerator we don't go into detail on setting these up, see [Fivetran's Documentation](https://fivetran.com/docs/destinations/databricks) if you want to learn more.
+{{% /notice %}}
 
 ***
 
