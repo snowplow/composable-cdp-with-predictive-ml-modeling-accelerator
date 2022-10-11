@@ -2,7 +2,7 @@
 # MAGIC %md 
 # MAGIC # Propensity to Convert ML Model Usage
 # MAGIC 
-# MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website. 
+# MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [website](https://snowplow.io/). 
 # MAGIC 
 # MAGIC Using our production propensity model, we will perform predictions on users from this dataset and save the output to a new table to feed into marketing campaigns. 
 
