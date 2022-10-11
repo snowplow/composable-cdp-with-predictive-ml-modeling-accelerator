@@ -1,11 +1,11 @@
 +++
-title = "Producitonizing ML Model"
+title = "Producitonizing your ML Model"
 weight = 1
 +++
 
 #### Deploying your machine learning models into production
 
-In this accelerator we have learnt how to log, register, load and use a MLflow model in Databricks. The final step is putting these models into production, this can be done:
+In this accelerator we have so far learned how to log, register, load and use a MLflow model in Databricks. The final step is putting these models into production, this can be done:
 
 * In batch or streaming
   * Using a standard Databricks's notebook job

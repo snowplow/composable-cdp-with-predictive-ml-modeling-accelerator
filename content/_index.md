@@ -13,15 +13,18 @@ aliases = [
 #### Introduction
 
 Welcome to the **Composable CDP** accelerator.
-This accelerator demonstrates the concept of a Composable CDP by using a selection of excellent tools for each step of the process. 
-* **Snowplow** for creating user behavioral data from your product.
-* **Databricks DeltaLake** to store the data.
-* **Databricks** and **MLFlow** for training and executing sophisticated ML predictions to determine a likelihood of conversion.
-* **Hightouch** activation platform to synchronize the audience segment with marketing tools (like Braze, Salesforce and Facebook Ads) and accelerate their conversion into the qualified leads. 
+This accelerator guides you through building a Composable CDP using a selection of excellent tools for each step of the process. 
+* [**Snowplow**](https://snowplow.io/) for creating user behavioral data from your product.
+* [**Databricks DeltaLake**](https://www.databricks.com/product/delta-lake-on-databricks) to store the data.
+* [**Databricks** and **MLFlow**](https://www.databricks.com/product/managed-mlflow) for training and executing sophisticated ML predictions to determine a likelihood of conversion.
+* [**Hightouch**](https://hightouch.com/) activation platform to synchronize the audience segment with marketing tools (like Braze, Salesforce and Facebook Ads) and accelerate their conversion into qualified leads. 
+
+Once finished, you will be able to use predictive models to achieve a competitive advantage from customer behavior data on your website, driving higher return on ad spend.
 
 ![composable_cdp](images/composable_cdp.png)
 
-Once finished, you will be able to use predictive models to achieve a competitive advantage from customer behavior data on your website, for example driving higher return on ad spend.
+(Data loaders like [Fivetran](https://www.fivetran.com/) can play an important role in a composable CDP. 
+In this accelerator we don't go into detail on setting these up, see [Fivetran's Documentation](https://fivetran.com/docs/destinations/databricks) if you want to learn more.)
 
 ***
 
@@ -36,7 +39,7 @@ Once finished, you will be able to use predictive models to achieve a competitiv
 
 In approximately 1 working day (~6 working hours) you can achieve the following:
 - **Build a predictive model -** Using Databricks and MLflow to build a machine learning model that can accurately predict conversion events using features collected from Snowplow's out-of-the-box modelled data
-- **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable our marketing teams to effortlessly build new audiences and sync to their needed destinations
+- **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable your marketing teams to effortlessly build new audiences and sync to their needed destinations
 - **Next steps -** Productionalize your ML model and visualize ad campaign performance synced from your Hightouch audiences
 
 {{<mermaid>}}
@@ -69,3 +72,9 @@ Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/
 **Data Activation**
 - Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
 - Hightouch account and a user with admin role
+
+#### What you will build
+
+A propensity to convert ML model that empowers you to intelligently market campaigns to website visitors that are most likely to convert.
+
+![ad_campaign_dashboard](next_steps/images/ad_campaign_dashboard_hightouch.png?width=100pc)

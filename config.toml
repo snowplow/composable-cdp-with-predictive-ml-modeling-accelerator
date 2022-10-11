@@ -1,5 +1,5 @@
 title = "Composable CDP"
-baseURL = "https://docs.snowplow.io/accelerators/composable_cdp/"
+baseURL = "https://docs.snowplow.io/accelerators/databricks_hightouch_composable_cdp/"
 
 [params]
   description = "Tutorial building a composable CDP using Snowplow, Databricks and Hightouch"
