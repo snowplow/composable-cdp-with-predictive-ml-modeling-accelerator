@@ -1,4 +1,4 @@
-+++ title = "Composable Customer Data Platform" 
++++ title = "Composable CDP with Predictive ML Modeling" 
 menuTitle="Introduction" 
 chapter = false 
 weight = 1 
@@ -12,8 +12,8 @@ aliases = [
 
 #### Introduction
 
-Welcome to the **Composable CDP** accelerator.
-This accelerator guides you through building a Composable CDP using a selection of excellent tools for each step of the process. 
+Welcome to the **Composable CDP with Predictive ML Modeling** accelerator.
+This accelerator guides you through building an advanced Composable Customer Data Platform using a selection of excellent tools for each step of the process. 
 * [**Snowplow**](https://snowplow.io/) for creating user behavioral data from your product.
 * [**Databricks DeltaLake**](https://www.databricks.com/product/delta-lake-on-databricks) to store the data.
 * [**Databricks** and **MLFlow**](https://www.databricks.com/product/managed-mlflow) for training and executing sophisticated ML predictions to determine a likelihood of conversion.
