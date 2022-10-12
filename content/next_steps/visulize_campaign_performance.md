@@ -27,7 +27,7 @@ To attribute conversions, you’ll also need to track conversion events. You'll 
 #### **Step 2:** Ingest campaign data
 Ingest your ad campaign data from your marketing tools into your data warehouse using ETL tools like [Fivetran](https://www.fivetran.com/). If you use multiple advertising sources, you now have a single source of truth and can easily query across all of them. 
 
-#### **Step 3:** Visualize performance
+#### **Step 3:** Visualize your performance
 Being able to monitor and compare all your campaigns in one place is vital for your marketing teams to uncover true ROI. 
 Join your ingested campaign data with your Snowplow tracked marketing attribution to build reporting in your BI tool.
 

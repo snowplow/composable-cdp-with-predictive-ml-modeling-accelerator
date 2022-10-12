@@ -2,7 +2,7 @@
 # MAGIC %md 
 # MAGIC # Propensity to Convert ML Model Training
 # MAGIC 
-# MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [snowplow.io](https://snowplow.io/) website. Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
+# MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [website](https://snowplow.io/). Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
 
 # COMMAND ----------
 
@@ -122,7 +122,7 @@ X_res, y_res = smote_nc.fit_resample(topk.fit_transform(df_train[all_features]),
 # MAGIC 
 # MAGIC Before fitting model hyperparameters, it is essential to establish what model property is being maximized. Accuracy would not work for this data due to class imbalance. A common approach to avoid this issue is the F1 score – a harmonic mean of precision and recall.
 # MAGIC 
-# MAGIC Identifying conversions (true positive) is more important than misclassifying negatives (false positives). Because F1 assigns the same weight to both precision and recall, it needs to be generalized to F Beta. That allows us to weight recall against precision. F2 (beta equals 2) is used for this example – recall is twice as important as precision. The value of beta should be tuned to a business case.
+# MAGIC Identifying conversions (true positive) is more important than misclassifying negatives (false positives). Because F1 assigns the same weight to both precision and recall, it needs to be generalized to F Beta. That allows us to weight recall against precision. F2 (beta equals 2) is used for this example – recall is twice as important as precision. The value of beta should be tuned to a business case, for further information view [Wikipedia's entry for F-score](https://en.wikipedia.org/wiki/F-score).
 
 # COMMAND ----------
 
@@ -206,6 +206,11 @@ disp.plot()
 
 # COMMAND ----------
 
+# MAGIC %md One of Snowplow's best features is its ability to accurately measure time engaged and scroll depth on a page by aggregating *[page ping](https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/javascript-trackers/javascript-tracker/javascript-tracker-v2/tracking-specific-events/#activity-tracking-page-pings)* events. From the feature importance plot below you can see the power of these engagement metrics in predicting conversion.
+
+# COMMAND ----------
+
+# DBTITLE 1,Feature Importance
 lgb.plot_importance(model.steps[1][1], max_num_features=15)
 
 # COMMAND ----------

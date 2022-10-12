@@ -1,5 +1,5 @@
 +++
-title="Predictive ML Modelling"
+title="Predictive ML Modeling"
 chapter = true
 weight = 2
 pre = "1. "

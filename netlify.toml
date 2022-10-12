@@ -1,0 +1,23 @@
+[build]
+publish = 'public'
+command = './scripts/build.sh $BUILD_OUTPUT_PATH'
+[build.environment]
+HUGO_VERSION = '0.104.1'
+HUGO_BASEURL = 'https://docs.snowplow.io/accelerators/databricks_hightouch_composable_cdp/'
+BUILD_OUTPUT_PATH = '/accelerators/databricks_hightouch_composable_cdp/'
+
+[context.production]
+[context.production.environment]
+HUGO_ENV = 'production'
+
+[context.deploy-preview]
+command = './scripts/build.sh $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
+
+[context.branch-deploy]
+command = './scripts/build.sh $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
+
+[[redirects]]
+from = "/*"
+to = "/accelerators/databricks_hightouch_composable_cdp/:splat"
+force = true
+status = 301
