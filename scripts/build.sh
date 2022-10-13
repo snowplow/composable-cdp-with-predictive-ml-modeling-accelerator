@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [[ $# -eq 0 ]]
+then
+    echo "At least one argument required. Use 'serve' to run the server"
+    exit 0
+fi
+
 mkdir build
 
 echo "Importing config..."
@@ -12,17 +19,24 @@ mkdir build/themes
 cp -R accelerator-web-ui-template/themes/hugo-theme-learn build/themes/
 cp -R accelerator-web-ui-template/layouts build/
 cp -R accelerator-web-ui-template/static build/
+cd build
 
 echo "Creating Hugo site..."
-cd build
-if [ $# -eq 2 ]
+HUGO_COMMAND="hugo"
+if [ $1 = "serve" ]
 then
-hugo --config baseconfig.toml,config.toml --gc --minify -d ../public$1 -b $2
-elif [ $# -eq 1 ]
+    echo 'Will start Hugo server'
+    HUGO_COMMAND="$HUGO_COMMAND server"
+fi
+
+if [ $# -eq 3 ]
 then
-hugo --config baseconfig.toml,config.toml --gc --minify -d ../public$1
+$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public$2 -b $3
+elif [ $# -eq 2 ]
+then
+$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public$2
 else
-hugo --config baseconfig.toml,config.toml --gc --minify -d ../public
+$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public
 fi
 cd ..
 rm -r build
