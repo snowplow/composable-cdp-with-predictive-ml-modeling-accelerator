@@ -1,6 +1,6 @@
 [build]
 publish = 'public'
-command = './scripts/build.sh $BUILD_OUTPUT_PATH'
+command = './scripts/build.sh build $BUILD_OUTPUT_PATH'
 [build.environment]
 HUGO_VERSION = '0.104.1'
 HUGO_BASEURL = 'https://docs.snowplow.io/accelerators/composable-cdp-with-predictive-ml-modeling/'
@@ -11,10 +11,10 @@ BUILD_OUTPUT_PATH = '/accelerators/composable-cdp-with-predictive-ml-modeling/'
 HUGO_ENV = 'production'
 
 [context.deploy-preview]
-command = './scripts/build.sh $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
+command = './scripts/build.sh build $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
 
 [context.branch-deploy]
-command = './scripts/build.sh $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
+command = './scripts/build.sh build $BUILD_OUTPUT_PATH $DEPLOY_PRIME_URL'
 
 [[redirects]]
 from = "/*"
