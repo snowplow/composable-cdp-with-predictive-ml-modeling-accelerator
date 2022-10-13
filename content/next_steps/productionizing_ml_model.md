@@ -1,5 +1,5 @@
 +++
-title = "Producitonizing your ML Model"
+title = "Productionizing your ML Model"
 weight = 1
 +++
 
