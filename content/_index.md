@@ -73,6 +73,7 @@ Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/
 
 **Data Activation**
 - Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
+- Set `user_id` in the tracker to your business user identifier (see [docs](https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/javascript-trackers/javascript-tracker/javascript-tracker-v2/tracker-setup/other-parameters-2/#setting-the-user-id)) so that the user can be identified and connected to your Hightouch destinations
 - Hightouch account and a user with admin role
 
 #### What you will build

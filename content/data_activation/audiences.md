@@ -29,7 +29,7 @@ For example, you may want to filter an audience by, if or when the user had view
 
 ```sql
 select 
-  domain_userid,
+  user_id,
   page_view_id,
   start_tstamp
 from dbt_cloud_derived.snowplow_web_page_views
