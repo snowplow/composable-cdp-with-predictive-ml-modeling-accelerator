@@ -24,28 +24,26 @@ If you are using the sample dataset from the [Advanced Analytics for Web](https:
 
 ```sql
 create or replace view first_touch_user_features as (
-    with pv as (
+    with first_page_view as (
         select
-            domain_userid,
+            user_id,
             absolute_time_in_s,
             vertical_percentage_scrolled,
             geo_country,
             geo_region,
             br_lang,
             device_family,
-            os_family,
-            row_number() over (
-                partition by domain_userid order by start_tstamp
-            ) as rn
+            os_family
         from snowplow_web_page_views
         where page_view_in_session_index = 1
-        qualify rn = 1
+        qualify 
+          row_number() over (partition by user_id order by start_tstamp) = 1
     ),
 
     converted_users as (
     -- Replace or remove this with your own website conversion logic
         select distinct
-            domain_userid,
+            user_id,
             True as converted
         from snowplow_web_page_views
         where (page_urlpath like '/get-started/%'
@@ -54,7 +52,7 @@ create or replace view first_touch_user_features as (
     )
 
     select
-        u.domain_userid,
+        u.user_id,
         u.first_page_title,
         u.refr_urlhost,
         u.refr_medium,
@@ -73,10 +71,13 @@ create or replace view first_touch_user_features as (
         coalesce(c.converted, false) as converted_user -- Your conversion flag here
     from snowplow_web_users u
     inner join
-        pv on u.domain_userid = pv.domain_userid
+        first_page_view pv on 
+            u.user_id = pv.user_id
     left join
         converted_users c on
-            u.domain_userid = c.domain_userid
+            u.user_id = c.user_id
+    qualify 
+      row_number() over (partition by u.user_id order by u.start_tstamp) = 1
 )
 
 ```

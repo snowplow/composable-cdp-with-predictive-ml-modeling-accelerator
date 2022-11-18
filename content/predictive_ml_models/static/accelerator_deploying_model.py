@@ -68,7 +68,7 @@ fig.show()
 # COMMAND ----------
 
 # DBTITLE 1,Save scores to table
-df_spark = spark.createDataFrame(df[["domain_userid", "propensity_score", "propensity_decile", "propensity_label"]])
+df_spark = spark.createDataFrame(df[["user_id", "propensity_score", "propensity_decile", "propensity_label"]])
 df_spark.write.mode("overwrite").saveAsTable("snowplow_samples.samples.snowplow_user_propensity_scores")
 
 display(df_spark)
