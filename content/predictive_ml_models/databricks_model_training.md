@@ -9,4 +9,22 @@ This propensity to convert solution provides a very flexible way to identify who
 
 Import this notebook into your Databricks workspace to run this model for yourself (see how to [Import a notebook](https://docs.databricks.com/notebooks/notebooks-manage.html#import-a-notebook)).
 
+{{< tabs >}}
+
+{{% tab name="Databricks" %}}
+Databricks test
+
+{{< jupyter accelerator_training_model 500 >}}
+
+{{% /tab %}}
+
+{{% tab name="Snowflake" %}}
+Snowflake test
+
+{{< jupyter accelerator_training_model 500 >}}
+
+{{% /tab %}}
+
+{{< /tabs >}}
+
 {{< jupyter accelerator_training_model 500 >}}
