@@ -41,7 +41,7 @@ In this accelerator we don't go into detail on setting these up, see [Fivetran's
 
 In approximately 1 working day (~6 working hours) you can achieve the following:
 - **Build a predictive model -** Build a machine learning model that can accurately predict conversion events using features collected from Snowplow's out-of-the-box modelled data
-- **Data activation -** With Hightouch connected to your rich user data in Databricks, you can enable your marketing teams to effortlessly build new audiences and sync to their needed destinations
+- **Data activation -** With Hightouch connected to your rich user data, you can enable your marketing teams to effortlessly build new audiences and sync to their needed destinations
 - **Next steps -** Productionalize your ML model and visualize ad campaign performance synced from your Hightouch audiences
 
 {{<mermaid>}}
@@ -66,12 +66,12 @@ Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/
 {{% /notice %}}
 
 **Predictive ML Modelling**
-- Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
+- Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your data warehouse
 - Conversion events, these can be derived from a Snowplow tracked event or using other sources like Salesforce data.
-- Databricks/Snowflake account and a user with access to create schemas and tables
+- Databricks or Snowflake account and a user with access to create schemas and tables
 
 **Data Activation**
-- Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your Databricks warehouse
+- Snowplow modelled web data (*page views*, *sessions* and *users*) stored in your data warehouse
 - Set `user_id` in the tracker to your business user identifier (see [docs](https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/javascript-trackers/javascript-tracker/javascript-tracker-v2/tracker-setup/other-parameters-2/#setting-the-user-id)) so that the user can be identified and connected to your Hightouch destinations
 - Hightouch account and a user with admin role
 
