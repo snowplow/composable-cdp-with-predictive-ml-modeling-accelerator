@@ -64,7 +64,31 @@ def score_model(dataset):
 
 {{% tab name="Snowflake" %}}
 
-Snowflake test
+#### **Snowflake Tasks**
+The example notebooks shown earlier in this accelerator showed how you could save the model training as a Snowflake Stored Procedure and using a Snowflake UDF to call your model for predictions. You can create [Snowflake Tasks](https://docs.snowflake.com/en/user-guide/tasks-intro) to:
+
+Schedule model training:
+
+```sql
+CREATE TASK train_model_monthly
+  WAREHOUSE = MY_WH
+  SCHEDULE = '1 MONTH'
+AS
+CALL TRAIN_PROPENSITY_TO_CONVERT_MODEL();
+```
+Schedule predictions:
+```sql
+CREATE TASK daily_predictions
+  WAREHOUSE = MY_WH
+  SCHEDULE = '1 DAY'
+AS
+CREATE OR REPLACE TABLE USER_PROPENSITY_SCORES AS (
+  SELECT
+    USER_ID,
+    PREDICT_PROPENSITY_TO_CONVERT(FIRST_PAGE_TITLE, REFR_URLHOST, REFR_MEDIUM, MKT_MEDIUM, MKT_SOURCE, MKT_TERM, MKT_CAMPAIGN, ENGAGED_TIME_IN_S, ABSOLUTE_TIME_IN_S, VERTICAL_PERCENTAGE_SCROLLED, GEO_COUNTRY, GEO_REGION, BR_LANG, DEVICE_FAMILY, OS_FAMILY) AS PROPENSITY_TO_CONVERT
+  FROM FIRST_TOUCH_USER_FEATURES
+);
+```
 
 {{% /tab %}}
 
