@@ -1,33 +1,33 @@
 # Databricks notebook source
-# MAGIC %md 
+# MAGIC %md
 # MAGIC # Propensity to Convert ML Model Training
-# MAGIC 
+# MAGIC
 # MAGIC In this notebook we will be using sample behavioral data collected by Snowplow's Javascript tracker from Snowplow's [website](https://snowplow.io/). Using this data we will build a model to predict if a user is likely to become a Snowplow customer.
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ### Model Selection
-# MAGIC 
+# MAGIC
 # MAGIC Boosting trees often perform better than neural networks on categorical data sets, such as this one. The most popular ones are XGBoost, LightGBM and CatBoost, each with different strengths. For this example we will use LightGBM.
-# MAGIC 
+# MAGIC
 # MAGIC **LightGBM** is a gradient boosting framework that uses tree based learning algorithms. It is designed to be distributed and efficient with the following advantages:
-# MAGIC 
+# MAGIC
 # MAGIC * Faster training speed and higher efficiency
 # MAGIC * Lower memory usage
 # MAGIC * Better accuracy
 # MAGIC * Support of parallel, distributed, and GPU learning
 # MAGIC * Capable of handling large-scale data
-# MAGIC 
-# MAGIC 
-# MAGIC **Resources:** 
+# MAGIC
+# MAGIC
+# MAGIC **Resources:**
 # MAGIC - [Full LightGBM Documentation](https://lightgbm.readthedocs.io/en/v3.3.2/)
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ### Configuration
-# MAGIC 
+# MAGIC
 # MAGIC Please use a cluster with **11.2 ML CPU** Runtime.
 
 # COMMAND ----------
@@ -87,7 +87,7 @@ print(df["converted_user"].value_counts(normalize=True))
 # COMMAND ----------
 
 # DBTITLE 1,Reduce number of categorical features
-# Reduce number of categorical features so `SMOTENC` doesn't run out of memory. 
+# Reduce number of categorical features so `SMOTENC` doesn't run out of memory.
 class TakeTopK(BaseEstimator, TransformerMixin):
     def __init__(self, k=20):
         self.largest_cat = {}
@@ -108,7 +108,7 @@ class TakeTopK(BaseEstimator, TransformerMixin):
 # COMMAND ----------
 
 # DBTITLE 1,Create train and test data sets
-cat_index = [ pd.Index(all_features).get_loc(col) for col in discrete_col ] 
+cat_index = [ pd.Index(all_features).get_loc(col) for col in discrete_col ]
 df_train, df_test = df.iloc[:df.shape[0]//10*8,:], df.iloc[df.shape[0]//10*8:,:]
 smote_nc = SMOTENC(categorical_features=cat_index, k_neighbors=5,  random_state=0, n_jobs=-1)
 topk = TakeTopK(50)
@@ -116,12 +116,12 @@ X_res, y_res = smote_nc.fit_resample(topk.fit_transform(df_train[all_features]),
 
 # COMMAND ----------
 
-# MAGIC %md 
+# MAGIC %md
 # MAGIC ### Hyperparameter tuning
 # MAGIC Using Hyperopt and SparkTrials to run a hyperparameter sweep to train multiple models in parallel.
-# MAGIC 
+# MAGIC
 # MAGIC Before fitting model hyperparameters, it is essential to establish what model property is being maximized. Accuracy would not work for this data due to class imbalance. A common approach to avoid this issue is the F1 score – a harmonic mean of precision and recall.
-# MAGIC 
+# MAGIC
 # MAGIC Identifying conversions (true positive) is more important than misclassifying negatives (false positives). Because F1 assigns the same weight to both precision and recall, it needs to be generalized to F Beta. That allows us to weight recall against precision. F2 (beta equals 2) is used for this example – recall is twice as important as precision. The value of beta should be tuned to a business case, for further information view [Wikipedia's entry for F-score](https://en.wikipedia.org/wiki/F-score).
 
 # COMMAND ----------
@@ -162,7 +162,7 @@ def evaluate_model(params):
 search_space = {
     'max_depth': scope.int(hp.quniform('max_depth', 2, 8, 1)),
     'objective': hp.choice('objective', ['binary']),
-    'metric': hp.choice("metric", ["binary_logloss"]),  
+    'metric': hp.choice("metric", ["binary_logloss"]),
     'n_estimators': scope.int(hp.quniform('n_estimators', 50, 200, 1)),
     'num_leaves': scope.int(hp.quniform('num_leaves', 20, 200, 10)),
     'min_child_samples': hp.quniform('min_child_samples', 5, 100, 5)
@@ -173,7 +173,7 @@ search_space = {
 # DBTITLE 1,Perform evaluation to optimal hyperparameters
 # perform evaluation
 with mlflow.start_run(run_name='LightGBM') as run:
-    # Greater parallelism will lead to speedups, but a less optimal hyperparameter sweep. 
+    # Greater parallelism will lead to speedups, but a less optimal hyperparameter sweep.
     # A reasonable value for parallelism is the square root of max_evals.
     trials = SparkTrials(parallelism=10)
     argmin = fmin(fn=evaluate_model, space=search_space, algo=tpe.suggest, max_evals=100, trials=trials)
@@ -191,10 +191,11 @@ with mlflow.start_run(run_name='LightGBM') as run:
 
 # MAGIC %md
 # MAGIC ### Model results
-# MAGIC Output a classification report and view feature importance to understand how your model is performing. You can open up the Experiments sidebar to further investigate how the hyperparameter choice correlates with model F2 scores using a parallel coordinates plot. 
-# MAGIC 
+# MAGIC Output a classification report and view feature importance to understand how your model is performing. You can open up the Experiments sidebar to further investigate how the hyperparameter choice correlates with model F2 scores using a parallel coordinates plot.
+# MAGIC
 # MAGIC You may want to run additional hyperparameter sweeps to explore different parameter values or continue to engineer new features to try further optimizing the model. Once happy with the model you would retrain it on your entire dataset. For simplicity, these steps are not included in this example.
-
+# MAGIC
+# MAGIC In general an F-beta score closer to 1 indicates better performance. What is considered an acceptable score depends on your specific business requirements and the consequences of false positives and false negatives. As a guideline, an F2 score of 0.5 or higher is often considered acceptable for use cases similar to this example.
 # COMMAND ----------
 
 y_pred = np.where(model.predict(df_test[all_features]) > 0.5, 1, 0)
@@ -217,7 +218,7 @@ lgb.plot_importance(model.steps[1][1], max_num_features=15)
 
 # MAGIC %md
 # MAGIC ### Register the model in MLflow Model Registry
-# MAGIC 
+# MAGIC
 # MAGIC By registering this model in Model Registry, you can easily reference the model from anywhere within Databricks. When ready, you can transition the model to production.
 
 # COMMAND ----------
