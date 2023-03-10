@@ -5,7 +5,11 @@ weight = 1
 
 #### Deploying your machine learning models into production
 
-In this accelerator we have so far learned how to log, register, load and use a MLflow model in Databricks. The final step is putting these models into production, this can be done:
+In this accelerator we have so far learned how to log, register, load and use a machine learning model in your data warehouse. The final step is putting these models into production, this can be done:
+
+{{< tabs >}}
+
+{{% tab name="Databricks" %}}
 
 * In batch or streaming
   * Using a standard Databricks's notebook job
@@ -17,7 +21,7 @@ The example notebook shown earlier in this accelerator showed how you could load
 ![ml_notebook_schedule](../images/ml_notebook_schedule.png?width=40pc)
 
 #### **Option 2:** Delta Live Tables
-If you are using a DLT pipeline, add the steps to load and use your model into your pipeline notebook. See [Delta Live Tables introduction](https://docs.databricks.com/workflows/delta-live-tables/index.html) for more information. 
+If you are using a DLT pipeline, add the steps to load and use your model into your pipeline notebook. See [Delta Live Tables introduction](https://docs.databricks.com/workflows/delta-live-tables/index.html) for more information.
 
 #### **Option 3:** MLflow model serving REST API
 
@@ -56,3 +60,36 @@ def score_model(dataset):
     raise Exception(f'Request failed with status {response.status_code}, {response.text}')
   return response.json()
 ```
+{{% /tab %}}
+
+{{% tab name="Snowflake" %}}
+
+#### **Snowflake Tasks**
+The example notebooks shown earlier in this accelerator showed how you could save the model training as a Snowflake Stored Procedure and using a Snowflake UDF to call your model for predictions. You can create [Snowflake Tasks](https://docs.snowflake.com/en/user-guide/tasks-intro) to:
+
+Schedule model training:
+
+```sql
+CREATE TASK train_model_monthly
+  WAREHOUSE = MY_WH
+  SCHEDULE = '1 MONTH'
+AS
+CALL TRAIN_PROPENSITY_TO_CONVERT_MODEL();
+```
+Schedule predictions:
+```sql
+CREATE TASK daily_predictions
+  WAREHOUSE = MY_WH
+  SCHEDULE = '1 DAY'
+AS
+CREATE OR REPLACE TABLE USER_PROPENSITY_SCORES AS (
+  SELECT
+    USER_ID,
+    PREDICT_PROPENSITY_TO_CONVERT(FIRST_PAGE_TITLE, REFR_URLHOST, REFR_MEDIUM, MKT_MEDIUM, MKT_SOURCE, MKT_TERM, MKT_CAMPAIGN, ENGAGED_TIME_IN_S, ABSOLUTE_TIME_IN_S, VERTICAL_PERCENTAGE_SCROLLED, GEO_COUNTRY, GEO_REGION, BR_LANG, DEVICE_FAMILY, OS_FAMILY) AS PROPENSITY_TO_CONVERT
+  FROM FIRST_TOUCH_USER_FEATURES
+);
+```
+
+{{% /tab %}}
+
+{{< /tabs >}}

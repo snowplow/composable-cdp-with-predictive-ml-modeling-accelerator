@@ -16,4 +16,4 @@ flowchart LR
     style id3 fill:#f5f5f5,stroke:#333,stroke-width:1px
 {{</mermaid >}}
 
-In this chapter you will learn how to build a propensity to convert machine learning model with Databricks and MLflow from Snowplow behavioral data. You will then be able to use these predictions to intelligently target high propensity visitors in your campaigns.
+In this chapter you will learn how to build a propensity to convert machine learning model with Snowplow behavioral data. You will then be able to use these predictions to intelligently target high propensity visitors in your campaigns.
