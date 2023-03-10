@@ -1,1 +1,7 @@
 public/
+myenv/
+mlruns/
+.ipynb_checkpoints/
+.DS_store
+.vscode/
+iframe_figures/
