@@ -110,7 +110,7 @@ class TakeTopK(BaseEstimator, TransformerMixin):
 # DBTITLE 1,Create train and test data sets
 cat_index = [ pd.Index(all_features).get_loc(col) for col in discrete_col ]
 df_train, df_test = df.iloc[:df.shape[0]//10*8,:], df.iloc[df.shape[0]//10*8:,:]
-smote_nc = SMOTENC(categorical_features=cat_index, k_neighbors=5,  random_state=0, n_jobs=-1)
+smote_nc = SMOTENC(categorical_features=cat_index, k_neighbors=5,  random_state=0)
 topk = TakeTopK(50)
 X_res, y_res = smote_nc.fit_resample(topk.fit_transform(df_train[all_features]), df_train.converted_user)
 
