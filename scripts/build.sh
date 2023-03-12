@@ -1,42 +1,31 @@
 #!/bin/bash
 
-if [[ $# -eq 0 ]]
-then
+if [[ $# -eq 0 ]]; then
     echo "At least one argument required. Use 'serve' to run the server"
-    exit 0
+    exit 1
 fi
 
-mkdir build
+mkdir -p build/{themes,layouts,static}
 
 echo "Importing config..."
 cp accelerator-web-ui-template/config.toml build/baseconfig.toml
-cp config.toml build/config.toml
-cp -R content build/
+cp config.toml build/
 
 echo "Importing themes..."
 git submodule update --init --recursive
-mkdir build/themes
-cp -R accelerator-web-ui-template/themes/hugo-theme-learn build/themes/
-cp -R accelerator-web-ui-template/layouts build/
-cp -R accelerator-web-ui-template/static build/
-cd build
+cp -R accelerator-web-ui-template/{themes/hugo-theme-learn,layouts/*,static/*} build/
 
 echo "Creating Hugo site..."
 HUGO_COMMAND="hugo"
-if [ $1 = "serve" ]
-then
-    echo 'Will start Hugo server'
-    HUGO_COMMAND="$HUGO_COMMAND server"
+if [[ $1 = "serve" ]]; then
+    echo "Will start Hugo server"
+    HUGO_COMMAND+=" server"
 fi
 
-if [ $# -eq 3 ]
-then
-$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public$2 -b $3
-elif [ $# -eq 2 ]
-then
-$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public$2
-else
-$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d ../public
-fi
-cd ..
-rm -r build
+OUTPUT_DIR="../public${2:-}"
+BASE_URL=${3:+"-b $3"}
+
+$HUGO_COMMAND --config baseconfig.toml,config.toml --gc --minify -d "$OUTPUT_DIR" $BASE_URL
+
+rm -rf build
+
