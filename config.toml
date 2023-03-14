@@ -4,3 +4,4 @@ baseURL = "https://docs.snowplow.io/accelerators/composable-cdp-with-predictive-
 [params]
   description = "Tutorial building a composable CDP with predictive ML modeling using Snowplow, Databricks or Snowflake, and Hightouch"
   author = "Snowplow, George Woodhead"
+  intercom=false
