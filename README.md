@@ -1,6 +1,6 @@
 # Composable CDP with Predictive ML Modeling Acclerator
 
-This accelerator guides the user through setting up a Composable CDP using Databrick, Hightouch and dbt.
+This accelerator guides the user through setting up a Composable CDP using Databricks or Snowflake, Hightouch and dbt.
 It leverages the Snowplow dbt web data model.
 
 ## Installation
