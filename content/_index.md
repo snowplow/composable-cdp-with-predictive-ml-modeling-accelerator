@@ -62,7 +62,7 @@ gantt
 #### Prerequisites
 
 {{% notice tip %}}
-Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/web/) accelerator if you don't have any Snowplow modelled web data in your warehouse yet. You don't need a working Snowplow pipeline, a sample events dataset is provided.
+Complete our [Advanced Analytics for Web](https://docs.snowplow.io/accelerators/web/) accelerator if you don't have any Snowplow modelled web data in your warehouse yet. You don't need a working Snowplow pipeline, a sample events dataset is provided. You can also choose to skip this altogether and upload the 3 derived tables ([snowplow_web_page_views](https://snowplow-demo-datasets.s3.eu-central-1.amazonaws.com/cCDP/snowplow_web_page_views.csv), [snowplow_web_sessions](https://snowplow-demo-datasets.s3.eu-central-1.amazonaws.com/cCDP/snowplow_web_sessions.csv), [snowplow_web_users](https://snowplow-demo-datasets.s3.eu-central-1.amazonaws.com/cCDP/snowplow_web_page_views.csv)) directly through these downloadable csvs. For instructions on how to do this, check out the official [Databricks documentation](https://docs.databricks.com/ingestion/add-data/index.html) or [Snowflake documentation](https://docs.snowflake.com/en/user-guide/data-load-web-ui).
 {{% /notice %}}
 
 **Predictive ML Modelling**
